@@ -28,11 +28,11 @@ class BotSettings:
 
 
 class DBSettings(EnvBaseSettings):
-    DB_URL: str | None = "sqlite:///test.db"
+    DB_NAME: str | None = "test.db"
 
     @property
     def database_url(self) -> URL | str:
-        return self.DB_URL
+        return f"sqlite:///{self.DB_NAME}"
 
 
 class Settings(BotSettings, DBSettings):
