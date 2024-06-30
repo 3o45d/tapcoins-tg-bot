@@ -15,5 +15,3 @@ class UserModel(Base):
     username: Mapped[str | None]
     language_code: Mapped[str | None]
     created_at: Mapped[created_at]
-
-    is_admin: Mapped[bool] = mapped_column(default=False)

@@ -1,6 +1,7 @@
 aiogram
 sqlalchemy
 aiosqlite
+pydantic
 pydantic-settings
 uvloop
 loguru

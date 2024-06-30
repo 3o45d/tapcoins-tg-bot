@@ -88,27 +88,9 @@ async def get_language_code(user_id: int) -> str:
         return language_code or ""
 
 
-async def check_is_admin(user_id: int) -> bool:
-    async with get_session() as session:
-        query = select(UserModel.is_admin).filter_by(id=user_id)
-
-        result = await session.execute(query)
-
-        is_admin = result.scalar_one_or_none()
-        return bool(is_admin)
-
-
 async def set_language_code(user_id: int, language_code: str) -> None:
     async with get_session() as session:
         stmt = update(UserModel).filter_by(id=user_id).values(language_code=language_code)
-
-        await session.execute(stmt)
-        await session.commit()
-
-
-async def set_is_admin(user_id: int, is_admin: bool) -> None:
-    async with get_session() as session:
-        stmt = update(UserModel).filter_by(id=user_id).values(is_admin=is_admin)
 
         await session.execute(stmt)
         await session.commit()

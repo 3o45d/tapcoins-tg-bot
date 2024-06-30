@@ -2,7 +2,7 @@ from aiogram.filters import BaseFilter
 from aiogram.types import Message, CallbackQuery
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.commands.user import check_is_admin
+from core.config import settings
 
 
 class AdminFilter(BaseFilter):
@@ -10,9 +10,10 @@ class AdminFilter(BaseFilter):
         if not message.from_user:
             return False
 
+        username = message.from_user.username
         user_id = message.from_user.id
 
-        return await check_is_admin(user_id=user_id)
+        return username in settings.ADMIN_LIST or user_id in settings.ADMIN_LIST
 
 
 class OnButtonFilter(BaseFilter):

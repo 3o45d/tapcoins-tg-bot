@@ -1,6 +1,7 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List, Union, Any
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 if TYPE_CHECKING:
@@ -13,6 +14,17 @@ class EnvBaseSettings(BaseSettings):
 
 class BotSettings:
     BOT_TOKEN: str
+    ADMIN_LIST: Union[List[Union[int, str]], str]
+
+    @field_validator("ADMIN_LIST", mode='before')
+    def parse_admin_list(cls, v: Any) -> List[Union[int, str]]:
+        if isinstance(v, str):
+            admins = v.split(',')
+            return [int(item) if item.isdigit() else item for item in admins]
+        elif isinstance(v, list):
+            return v
+        else:
+            raise ValueError("Invalid format for ADMIN_LIST (Check .env)")
 
 
 class DBSettings(EnvBaseSettings):
