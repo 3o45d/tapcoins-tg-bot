@@ -14,7 +14,7 @@ class EnvBaseSettings(BaseSettings):
 
 class BotSettings:
     BOT_TOKEN: str
-    ADMIN_LIST: Union[List[Union[int, str]], str]
+    ADMIN_LIST: Union[List[Union[int, str]], str] = ''
 
     @field_validator("ADMIN_LIST", mode='before')
     def parse_admin_list(cls, v: Any) -> List[Union[int, str]]:
