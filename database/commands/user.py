@@ -10,7 +10,6 @@ if TYPE_CHECKING:
 
 
 async def add_user(user: User) -> None:
-    # TODO: button -> typed dict
     async with get_session() as session:
         user_id: int = user.id
         first_name = user.first_name

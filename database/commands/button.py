@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import TypedDict, Optional, List
 
 from sqlalchemy import func, select, update
 
@@ -6,8 +6,17 @@ from database.database import get_session
 from database.models import ButtonModel
 
 
-async def add_button(button: dict) -> None:
-    # TODO: button -> typed dict
+class ButtonDict(TypedDict):
+    """
+    Attributes:
+        text (str): The text displayed on the button.
+        url (str): The URL associated with the button.
+    """
+    text: str
+    url: str
+
+
+async def add_button(button: ButtonDict) -> None:
     async with get_session() as session:
         text: Optional[str] = button.get("text", None)
         link: Optional[str] = button.get("url", None)
@@ -21,7 +30,7 @@ async def add_button(button: dict) -> None:
         await session.commit()
 
 
-async def get_all_buttons() -> list[ButtonModel]:
+async def get_all_buttons() -> List[ButtonModel]:
     async with get_session() as session:
         query = select(ButtonModel)
 

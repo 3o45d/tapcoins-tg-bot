@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, TypedDict
 
 from sqlalchemy import select, update
 
@@ -6,10 +6,19 @@ from database.database import get_session
 from database.models import SettingModel
 
 
-async def add_setting(setting: dict) -> None:
-    # TODO: button -> typed dict
+class SettingDict(TypedDict):
+    """
+    Attributes:
+        name (str): The name of the setting.
+        value (Optional[str]): The value of the setting, which can be None.
+    """
+    name: str
+    value: Optional[str]
+
+
+async def add_setting(setting: SettingDict) -> None:
     async with get_session() as session:
-        name: Optional[str] = setting.get("name", None)
+        name: str = setting.get("name")
         value: Optional[str] = setting.get("value", None)
 
         new_setting = SettingModel(

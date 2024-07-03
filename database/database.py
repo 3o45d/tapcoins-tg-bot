@@ -3,11 +3,11 @@ from __future__ import annotations
 from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING
 
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
-
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from core.config import settings
 
 if TYPE_CHECKING:
+    from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
     from sqlalchemy.engine.url import URL
 
 

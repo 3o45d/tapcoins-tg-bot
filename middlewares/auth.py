@@ -1,11 +1,14 @@
-from collections.abc import Awaitable, Callable
-from typing import Any, TYPE_CHECKING
+from __future__ import annotations
 
-from aiogram import BaseMiddleware
+from typing import TYPE_CHECKING, Any
 from aiogram.types import Message
+from aiogram import BaseMiddleware
 from loguru import logger
 
 from database.commands.user import add_user, user_exists
+
+if TYPE_CHECKING:
+    from collections.abc import Awaitable, Callable
 
 
 class AuthMiddleware(BaseMiddleware):
